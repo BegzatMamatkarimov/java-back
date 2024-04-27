@@ -1,6 +1,6 @@
 package com.arbek.dto;
 
-import com.arbek.enums.UserType;
+import com.arbek.auth.entities.UserType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
