@@ -1,6 +1,9 @@
 package com.arbek.dto;
 
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieDto {
-  private Integer movieId;
+
+  private Long movie_id;
 
   @NotBlank(message = "Movie's title couldn't be empty!")
   private String title;
@@ -19,10 +23,13 @@ public class MovieDto {
   @NotBlank(message = "Movie's description couldn't be empty!")
   private String description;
 
+  @NotNull(message = "Movie's rating couldn't be empty!")
   private Integer rating;
 
+  @NotNull(message = "Movie's release year couldn't be empty!")
   private Integer releaseYear;
 
+  @NotNull(message = "Movie's title couldn't be empty!")
   private Integer duration;
 
   private List<String> genres;
@@ -31,6 +38,11 @@ public class MovieDto {
 
   private List<String> stars;
 
-  @NotBlank(message = "Movie's poster couldn't be empty!")
-  private String posterSrc;
+  @NotBlank(message = "Please private movie's poster!")
+  private String poster;
+
+  @NotBlank(message = "Please private poster's URL!")
+  private String posterUrl;
+
+
 }
