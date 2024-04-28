@@ -1,12 +1,18 @@
+project:
+  poster: posters/
+
 spring:
   datasource:
-    username: postgres
     password: A28060550946
     url: jdbc:postgresql://localhost:5432/java-final
+    username: postgres
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
     properties:
       hibernate:
         format_sql: true
+    show-sql: true
+
+base:
+  url: "http://localhost:8080"

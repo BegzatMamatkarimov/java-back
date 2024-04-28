@@ -1,6 +1,6 @@
 package com.arbek.auth.config;
 
-import com.arbek.auth.repositories.UserRepository;
+import com.arbek.auth.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

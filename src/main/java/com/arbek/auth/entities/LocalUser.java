@@ -4,58 +4,53 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Builder
 public class LocalUser implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer userId;
 
-  @NotBlank(message = "The username field can't be blank!")
+  @NotBlank(message = "The username field can't be blank")
   @Column(nullable = false, unique = true)
   private String username;
 
-  @NotBlank(message = "The password field can't be blank!")
   @Column(nullable = false)
   @Size(min = 8, message = "The password must have at least 8 characters")
+  @NotBlank(message = "The password field can't be blank")
   private String password;
 
   @OneToOne(mappedBy = "localUser")
   private RefreshToken refreshToken;
 
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private UserType userType;
+
+  @Column
   private String firstName;
 
+  @Column
   private String lastName;
 
-  @Enumerated(EnumType.STRING)
-  private UserRole userRole;
-
-  private Boolean isEnabled = true;
-
-  private Boolean isAccountNonExpired = true;
-
-  private Boolean isAccountNonLocked = true;
-
-  private Boolean isCredentialsNonExpired = true;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
-  }
-
-  @Override
-  public String getPassword() {
-    return password;
+    return List.of(new SimpleGrantedAuthority(userType.name()));
   }
 
   @Override
@@ -64,22 +59,27 @@ public class LocalUser implements UserDetails {
   }
 
   @Override
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
   public boolean isAccountNonExpired() {
-    return isAccountNonExpired;
+    return true;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return isAccountNonLocked;
+    return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return isCredentialsNonExpired;
+    return true;
   }
 
   @Override
   public boolean isEnabled() {
-    return isEnabled;
+    return true;
   }
 }
