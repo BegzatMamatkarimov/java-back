@@ -1,4 +1,4 @@
-package com.arbek;
+package com.arbek.servis;
 
 import com.arbek.dto.MovieDto;
 import com.arbek.entities.Movie;
