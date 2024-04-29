@@ -1,5 +1,6 @@
 package com.arbek.dto;
 
+import com.arbek.auth.entities.UserType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +15,7 @@ public class UserDto {
   @NotBlank(message = "User's name couldn't be empty!")
   private String username;
 
-  @NotBlank(message = "User's password couldn't be empty!")
-  private String password;
+  private UserType userType;
 
   private String firstName;
 
