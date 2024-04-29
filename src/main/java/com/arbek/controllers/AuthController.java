@@ -10,14 +10,11 @@ import com.arbek.auth.utils.LoginRequest;
 import com.arbek.auth.utils.RefreshTokenRequest;
 import com.arbek.auth.utils.RegisterRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth/")
+@CrossOrigin(origins = "*")
 public class AuthController {
   private final AuthService authService;
   private final RefreshTokenService refreshTokenService;
