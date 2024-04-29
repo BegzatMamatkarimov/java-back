@@ -24,6 +24,7 @@ public class MovieController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
+    // добовления фильма
     @PostMapping("/")
     public ResponseEntity<MovieDto> addMovieHandler(@RequestPart MultipartFile file,
                                                     @RequestPart String movieDto) throws IOException {
@@ -40,6 +41,23 @@ public class MovieController {
     public ResponseEntity<List<MovieDto>> getAllMoviesHandler(){
         return ResponseEntity.ok(movieService.getAlMovies());
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/{movieId}")
+    public ResponseEntity<MovieDto> updateMovieHandler(@PathVariable Long movieId,
+                                                       @RequestPart String movieDto) throws IOException {
+        MovieDto dto = convertToMovieDto(movieDto);
+        return ResponseEntity.ok(movieService.updateMovie(movieId, dto));
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("/{movieId}")
+    public ResponseEntity<Void> deleteMovieHandler(@PathVariable Long movieId) {
+        movieService.deleteMovie(movieId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
     // строк -> JSON
     private MovieDto convertToMovieDto(String movieDtoObj) throws JsonProcessingException {

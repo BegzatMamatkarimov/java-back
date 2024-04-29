@@ -15,4 +15,8 @@ public interface MovieService {
     MovieDto getMovie(Integer movieId);
 
     List<MovieDto> getAlMovies();
+
+    MovieDto updateMovie(Long movieId, MovieDto movieDto) throws IOException;
+
+    void deleteMovie(Long movieId);
 }

@@ -128,4 +128,53 @@ public class MovieServiceImpl implements MovieService {
         }
         return movieDtos;
     }
+
+    @Override
+    public MovieDto updateMovie(Long movieId, MovieDto movieDto) throws IOException {
+        // Проверяем, существует ли фильм с данным идентификатором
+        Movie existingMovie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        // Обновляем данные фильма с использованием данных из DTO
+        existingMovie.setTitle(movieDto.getTitle());
+        existingMovie.setDescription(movieDto.getDescription());
+        existingMovie.setRating(movieDto.getRating());
+        existingMovie.setReleaseYear(movieDto.getReleaseYear());
+        existingMovie.setDuration(movieDto.getDuration());
+        existingMovie.setGenres(movieDto.getGenres());
+        existingMovie.setDirectors(movieDto.getDirectors());
+        existingMovie.setStars(movieDto.getStars());
+        existingMovie.setPoster(movieDto.getPoster());
+
+        // Сохраняем обновленный фильм в базе данных
+        Movie updatedMovie = movieRepository.save(existingMovie);
+
+        // Генерируем URL плаката
+        String posterUrl = baseUrl + "/file/" + updatedMovie.getPoster();
+
+        // Возвращаем обновленный фильм как DTO
+        return new MovieDto(
+                updatedMovie.getMovie_id(),
+                updatedMovie.getTitle(),
+                updatedMovie.getDescription(),
+                updatedMovie.getRating(),
+                updatedMovie.getReleaseYear(),
+                updatedMovie.getDuration(),
+                updatedMovie.getGenres(),
+                updatedMovie.getDirectors(),
+                updatedMovie.getStars(),
+                updatedMovie.getPoster(),
+                posterUrl
+        );
+    }
+
+    @Override
+    public void deleteMovie(Long movieId) {
+        // Проверяем, существует ли фильм с данным идентификатором
+        Movie movieToDelete = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        // Удаляем фильм из базы данных
+        movieRepository.delete(movieToDelete);
+    }
 }

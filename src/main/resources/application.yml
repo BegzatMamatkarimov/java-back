@@ -3,8 +3,8 @@ project:
 
 spring:
   datasource:
-    password: A28060550946
-    url: jdbc:postgresql://localhost:5432/java-final
+    password: 123
+    url: jdbc:postgresql://localhost:5432/java-back
     username: postgres
   jpa:
     hibernate:
