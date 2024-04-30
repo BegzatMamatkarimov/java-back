@@ -5,8 +5,9 @@ import com.arbek.dto.UserDto;
 
 public interface UserService {
 
+    UserDto updateUser(String token, UpdateUserRequest updateUserRequest);
+
     UserDto getCurrentUser(String token);
-    UpdateUserRequest updateCurrentUser(String token, UpdateUserRequest updateUserRequest);
 
 
 }

@@ -3,6 +3,8 @@ package com.arbek.controllers;
 import com.arbek.dto.UpdateUserRequest;
 import com.arbek.dto.UserDto;
 import com.arbek.servis.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,17 +31,15 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    public ResponseEntity<Void> updateCurrentUserHandler(
-            @RequestHeader("Authorization") String authorizationHeader,
-            @RequestBody UpdateUserRequest updateUserRequest
-    ) {
+    public ResponseEntity<UserDto> updateUserHandler(@RequestHeader("Authorization") String authorizationHeader,
+                                                     @RequestBody UpdateUserRequest updateUserRequest) {
         // Извлекаем токен из заголовка авторизации
         String token = authorizationHeader.replace("Bearer ", "");
 
-        // Обновляем информацию о текущем пользователе
-        userService.updateCurrentUser(token, updateUserRequest);
+        // Обновляем данные пользователя
+        UserDto updatedUser = userService.updateUser(token, updateUserRequest);
 
-        // Возвращаем успешный ответ без содержимого
-        return ResponseEntity.noContent().build();
+        // Возвращаем обновленного пользователя
+        return ResponseEntity.ok(updatedUser);
     }
 }
