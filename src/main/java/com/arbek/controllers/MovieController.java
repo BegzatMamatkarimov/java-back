@@ -2,6 +2,7 @@ package com.arbek.controllers;
 
 import com.arbek.dto.MovieDto;
 import com.arbek.dto.MoviePageResponse;
+import com.arbek.entities.Movie;
 import com.arbek.service.MovieService;
 import com.arbek.utils.AppConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -76,6 +78,20 @@ public class MovieController {
       @RequestParam(defaultValue = AppConstants.SORT_DIR, required = false) String sortDir
   ) {
     return ResponseEntity.ok(movieService.getAllMoviesWithPaginationAndSorting(pageNumber, pageSize, sortBy, sortDir));
+  }
+
+  // Поиск фильмов по названию
+  @GetMapping("/by_title")
+  public ResponseEntity<List<MovieDto>> getMoviesByTitle(@RequestParam String title) {
+    List<MovieDto> movies = movieService.getMoviesByTitle(title);
+    return ResponseEntity.ok(movies);
+  }
+
+  // Фильтр фильмов по жанру
+  @GetMapping("/filter")
+  public ResponseEntity<List<MovieDto>> getMoviesByGenre(@RequestParam String genre) {
+    List<MovieDto> movies = movieService.getMoviesByGenre(genre);
+    return ResponseEntity.ok(movies);
   }
 
   // строк -> JSON

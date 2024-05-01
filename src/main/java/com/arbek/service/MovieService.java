@@ -2,6 +2,7 @@ package com.arbek.service;
 
 import com.arbek.dto.MovieDto;
 import com.arbek.dto.MoviePageResponse;
+import com.arbek.entities.Movie;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,4 +24,10 @@ public interface MovieService {
   MoviePageResponse getAllMoviesWithPagination(Integer pageNumber, Integer pageSize);
 
   MoviePageResponse getAllMoviesWithPaginationAndSorting(Integer pageNumber, Integer pageSize, String sortBy, String dir);
+
+  // Поиск фильмов по названию
+  List<MovieDto> getMoviesByTitle(String title);
+
+  // Фильтр фильмов по жанру
+  List<MovieDto> getMoviesByGenre(String genre);
 }

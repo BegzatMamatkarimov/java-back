@@ -14,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -245,4 +247,55 @@ public class MovieServiceImpl implements MovieService {
         moviePages.getTotalElements(),
         moviePages.isLast());
   }
+
+  // Поиск фильмов по названию
+  @Override
+  public List<MovieDto> getMoviesByTitle(String title) {
+    List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(title);
+    List<MovieDto> movieDtos = new ArrayList<>();
+    for (Movie movie : movies) {
+      String posterUrl = baseUrl + "/file/" + movie.getPoster();
+      MovieDto movieDto = new MovieDto(
+              movie.getMovie_id(),
+              movie.getTitle(),
+              movie.getDescription(),
+              movie.getRating(),
+              movie.getReleaseYear(),
+              movie.getDuration(),
+              movie.getGenres(),
+              movie.getDirectors(),
+              movie.getStars(),
+              movie.getPoster(),
+              posterUrl
+      );
+      movieDtos.add(movieDto);
+    }
+    return movieDtos;
+  }
+
+  // Фильтр фильмов по жанру
+  @Override
+  public List<MovieDto> getMoviesByGenre(String genre) {
+    List<Movie> movies = movieRepository.findByGenresContaining(genre);
+    List<MovieDto> movieDtos = new ArrayList<>();
+    for (Movie movie : movies) {
+      String posterUrl = baseUrl + "/file/" + movie.getPoster();
+      MovieDto movieDto = new MovieDto(
+              movie.getMovie_id(),
+              movie.getTitle(),
+              movie.getDescription(),
+              movie.getRating(),
+              movie.getReleaseYear(),
+              movie.getDuration(),
+              movie.getGenres(),
+              movie.getDirectors(),
+              movie.getStars(),
+              movie.getPoster(),
+              posterUrl
+      );
+      movieDtos.add(movieDto);
+    }
+    return movieDtos;
+  }
+
 }
