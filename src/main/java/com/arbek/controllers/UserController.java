@@ -2,14 +2,13 @@ package com.arbek.controllers;
 
 import com.arbek.dto.UpdateUserRequest;
 import com.arbek.dto.UserDto;
-import com.arbek.servis.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.arbek.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users/")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;

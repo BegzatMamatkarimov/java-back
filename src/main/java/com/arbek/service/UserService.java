@@ -1,4 +1,4 @@
-package com.arbek.servis;
+package com.arbek.service;
 
 import com.arbek.dto.UpdateUserRequest;
 import com.arbek.dto.UserDto;

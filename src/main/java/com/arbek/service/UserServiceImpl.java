@@ -1,4 +1,4 @@
-package com.arbek.servis;
+package com.arbek.service;
 
 import com.arbek.auth.entities.LocalUser;
 import com.arbek.auth.repository.UserRepository;
